@@ -44,14 +44,6 @@ router.put('/',jwtAuth,
         return res.status(409).json({message:'check property required.'});
     }
     req.body.check.owner_email = decoded.email;
-    if(req.body.check.interval)
-    {
-        req.body.check.interval = req.body.check.interval * 60 * 1000;
-    }
-    if(req.body.check.timeout)
-    {
-        req.body.check.timeout = req.body.check.timeout * 1000;
-    }
     next();
 },
 async (req,res,next)=>{

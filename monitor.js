@@ -97,11 +97,11 @@ const Monitor = {
         const [ options , assertion_function ] = this.create_interval_info(check_doc);
         const process_request = (req) => {
             req.on('error',(e)=>{
-                console.log(check_doc.url,"request error:",e);
+                console.log(check_doc.url,"request error:",e.message);
             });
             req.on('timeout',()=>{
                 updateReport(check_doc,false,500,req.method,check_doc.timeout);
-                req.destroy('Request timed out.');
+                req.destroy(new Error('Request timed out.'));
             });
             req.end();
             console.log('--HTTP request to url: '+check_doc.url);

@@ -7,7 +7,7 @@ Table of contents
 - [Development Notes](#development-notes)
 
 ## Note
-- The file [nodejs_client.js](./nodejs_client) contains a client that could be used to try out the API server. Just fill in `postData`, `path`, and `method`.
+- The file [nodejs_client.js](./nodejs_client.js) contains a client that could be used to try out the API server. Just fill in `postData`, `path`, and `method`.
 
 
 ## API Documentation
@@ -110,6 +110,6 @@ to the body of ANY type of request to the routes `/check` and `/report` describe
 
 ## Development Notes
 - What would make this uptime monitor much better?
-  - Separating the monitoring service (`Monitor` object in [monitor.js](./monitor)) from the CRUD service. As it stands now, the monitoring service (where the url checks are done, and the timers are stored) is in the same process as the CRUD service (where signing up process, adding checks, updating reports etc. are done). This separation will simply minimize tasks that might add to delays in the monitoring service.
+  - Separating the monitoring service (`Monitor` object in [monitor.js](./monitor.js)) from the CRUD service. As it stands now, the monitoring service (where the url checks are done, and the timers are stored) is in the same process as the CRUD service (where signing up process, adding checks, updating reports etc. are done). This separation will simply minimize tasks that might add to delays in the monitoring service.
   - Using an in-memory store like Redis in the monitoring service to store the timers and information relating to checks. As it stands now, all this information is stored in the Node.js process memory.
   - Add a feature to the monitoring service that tracks how many connections are alive at the same time to make sure that the amount of live connections do not explode. As it stands now, the only 'protection' against this is preventing polling requests to have an interval less than 30s.
