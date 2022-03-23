@@ -7,7 +7,7 @@ Table of contents
 - [Development Notes](#development-notes)
 
 ## Note
-- The file [nodejs_client.js](./nodejs_client) contains a client that could be used to try out the API server. Just fill in `postData`, `path`, and `method`.
+- The file [nodejs_client.js](./nodejs_client.js) contains a client that could be used to try out the API server. Just fill in `postData`, `path`, and `method`.
 
 
 ## API Documentation
