@@ -64,4 +64,20 @@ checkSchema.pre(
     }
 );
 
+checkSchema.post(
+    'find',
+    function(doc) {
+        doc.interval = doc.interval /(1000*60);
+        doc.timeout = doc.timeout / 1000;
+    }
+);
+
+checkSchema.post(
+    'findOne',
+    function(doc) {
+        doc.interval = doc.interval /(1000*60);
+        doc.timeout = doc.timeout / 1000;
+    }
+);
+
 module.exports = mongoose.model('Check',checkSchema);

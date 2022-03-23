@@ -10,7 +10,7 @@ const Monitor = require('../../monitor');
 router.get('/',jwtAuth,async (decoded,req,res,next)=>{
     try
     {
-        if(!req.body.check || !req.body.check.name || !req.body.check.tags)
+        if(!req.body.check || (!req.body.check.name && !req.body.check.tags))
         {
             const docs = await Check.find({owner_email: decoded.email}).exec();
             console.log('Getting all',docs.length,'check documents.');

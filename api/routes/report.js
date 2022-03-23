@@ -8,7 +8,7 @@ const Report = require('../models/Report');
 router.get('/',jwtAuth,async (decoded,req,res,next)=>{
     try
     {
-        if(!req.body.check || !req.body.check.name || !req.body.check.tags)
+        if(!req.body.check || (!req.body.check.name && !req.body.check.tags))
         {
             const docs = await Report.find({owner_email: decoded.email},'-owner_email -count -consecutive_outages').exec();
             console.log('Getting all',docs.length,'report documents.');
