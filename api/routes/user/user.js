@@ -18,7 +18,7 @@ router.post('/signup', userMiddleware.email_format, userMiddleware.email_exists,
             if(verification_doc)
             {
                 const message = 'Verification code already sent to '+req.body.email+'. Repeat this request in '
-                    + (Math.floor((Date.now()-verification_doc.createdAt)/60000)+1) + ' mins to re-send a new verification code.';
+                    + (10-Math.floor((Date.now()-verification_doc.createdAt)/60000)) + ' mins to re-send a new verification code.';
                 console.log(message);
                 return res.status(409).json({ message });
             }
