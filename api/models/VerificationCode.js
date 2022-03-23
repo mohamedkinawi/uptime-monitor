@@ -14,7 +14,7 @@ const verificationCodeSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        expires: '10m'
+        expires: 600
     }
 });
 
