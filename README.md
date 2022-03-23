@@ -65,8 +65,8 @@ to the body of ANY type of request to the routes `/check` and `/report` describe
     - `tags`: A list/array of the check tags *(optional)*.
     - `ignoreSSL`: A flag to ignore broken/expired SSL certificates in case of using the HTTPS protocol *(optional)*.
 - repeating a `PUT` request for a check with an existing `name` will update that check with any changed attributes
-- updating a check will reset its report i.e. lose all data of the report associate with the old check
-- if successful, the check will be start executing immediately and a corresponding report (described below) will be created and updated continuously
+- updating a check will reset its report i.e. lose all data of the report associated with the old check
+- if successful, the check will start executing immediately and a corresponding report (described below) will be created and updated continuously
 
 **5. Get check information**
 - `GET` to `/check`
@@ -100,7 +100,7 @@ to the body of ANY type of request to the routes `/check` and `/report` describe
 
 ## Development Notes
 - What would make this uptime monitor much better?
-  - Separating the monitoring service (`Monitor` object in [monitor.js](./monitor.js)) from the CRUD service. As it stands now, the monitoring service (where the url checks are done, and the timers are stored) is in the same process as the CRUD service (where signing up process, adding checks, updating reports etc. are done). This separation will simply minimize tasks that might add to delays in the monitoring service.
+  - The monitoring service (`Monitor` object in [monitor.js](./monitor.js)) (where the url checks are done, and the timers are stored) should be in a separate process from the CRUD service (where signing up process, adding checks, updating reports etc. are done). This way the monitoring service can be scaled independently from the CRUD service and the monitoring processes will simply have space for more checks to execute instead of having to deal with CRUD requests too.
   - Using an in-memory store like Redis in the monitoring service to store the timers and information relating to checks. As it stands now, all this information is stored in the Node.js process memory.
   - Add a feature to the monitoring service that tracks how many connections are alive at the same time to make sure that the amount of live connections do not explode. As it stands now, the only 'protection' against this is preventing polling requests to have an interval less than 30s.
   - Currently, checks are run automatically when added by a user, but are not automatically run if the Node.js process gets killed for unexpected reasons. Therefore, a function must be added to launch all checks in a correctly distributed manner if the Node.js process gets killed and run again.
