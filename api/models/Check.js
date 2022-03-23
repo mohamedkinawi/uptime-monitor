@@ -16,7 +16,7 @@ const checkSchema = new mongoose.Schema({
     protocol: {
         type: String,
         required: true,
-        enum: ['HTTP', 'HTTPS', 'TCP']
+        enum: ['HTTP', 'HTTPS']
     },
     path: String,
     port: Number,

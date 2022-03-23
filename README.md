@@ -19,8 +19,6 @@ Table of contents
   - will contain a `message : <message>` in the body to confirm a successful action or to state the reason of an error
   - might have additional content in the body (mentioned below case-by-case)
 
-
-
 **1. Sign up**
 - `POST` to `/user/signup`
 - body
@@ -28,16 +26,12 @@ Table of contents
 - if successful, a verification code is sent to your inbox
 - code expires after 10 minutes and you will need to sign up again to send a new verification code
 
-
-
 **2. Verify email**
 - `POST` to `/user/verify`
 - body
   - `email` : email used for signing up
   - `verification_code` : paste verification code sent to email
   - `password` : your desired password
-
-
 
 **3. Login**
 - `POST` to `/user/login`
@@ -47,8 +41,6 @@ Table of contents
 - if login is successful, response body will contain a `token : <authorization_token>` that must be attached
 to the body of ANY type of request to the routes `/check` and `/report` described below
 - The token expires after 1 hour and you will need to login again to generate a new token
-
-
 
 **4. Add a new check**
 - `PUT` to `/check`
@@ -76,8 +68,6 @@ to the body of ANY type of request to the routes `/check` and `/report` describe
 - updating a check will reset its report i.e. lose all data of the report associate with the old check
 - if successful, the check will be start executing immediately and a corresponding report (described below) will be created and updated continuously
 
-
-
 **5. Get check information**
 - `GET` to `/check`
 - body
@@ -92,7 +82,7 @@ to the body of ANY type of request to the routes `/check` and `/report` describe
   - `token` : authorization token
   - `name` : name of check you want to delete
 
-**7. Get report information**
+**7. Get report**
 - `GET` to `/report`
 - body
   - `token` : authorization token
@@ -113,3 +103,4 @@ to the body of ANY type of request to the routes `/check` and `/report` describe
   - Separating the monitoring service (`Monitor` object in [monitor.js](./monitor.js)) from the CRUD service. As it stands now, the monitoring service (where the url checks are done, and the timers are stored) is in the same process as the CRUD service (where signing up process, adding checks, updating reports etc. are done). This separation will simply minimize tasks that might add to delays in the monitoring service.
   - Using an in-memory store like Redis in the monitoring service to store the timers and information relating to checks. As it stands now, all this information is stored in the Node.js process memory.
   - Add a feature to the monitoring service that tracks how many connections are alive at the same time to make sure that the amount of live connections do not explode. As it stands now, the only 'protection' against this is preventing polling requests to have an interval less than 30s.
+  - Currently, checks are run automatically when added by a user, but are not automatically run if the Node.js process gets killed for unexpected reasons. Therefore, a function must be added to launch all checks in a correctly distributed manner if the Node.js process gets killed and run again.
