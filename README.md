@@ -74,7 +74,7 @@ to the body of ANY type of request to the routes `/check` and `/report` describe
   - `token` : authorization token
   - `name` : name of check to get one check only (returns one document)
   - `tags` : array of tags to get all checks that satisfy all tags (returns array)
-  - not supplying `name` nor `tags` will get all checks you added (returns array)
+  - supply `name` OR `tags` ; not supplying `name` nor `tags` will get all checks you added (returns array)
 
 **6. Delete check**
 - `DELETE` to `/check`
@@ -88,7 +88,7 @@ to the body of ANY type of request to the routes `/check` and `/report` describe
   - `token` : authorization token
   - `name` : get report of check with that name (returns one document)
   - `tags` : get all reports for checks that satisfy these tags  (returns array)
-  - not supplying `name` nor `tags` will get all reports of all checks you added (returns array)
+  - supply `name` OR `tags` ; not supplying `name` nor `tags` will get all reports for all checks you added (returns array)
 - structure of a returned report
   - `status`: The current status of the URL.
   - `availability`: A percentage of the URL availability.
