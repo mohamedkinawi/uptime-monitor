@@ -43,4 +43,5 @@ req.on('error',(e)=>{
 });
 
 req.write(postData);
+console.log("Waiting for response...");
 req.end();
